@@ -271,14 +271,15 @@ No response body. Only by status.
 ##### Response
 List of objects with following fields:
 
-| Field                | Type        | Description                               |
-|:---------------------|:------------|:------------------------------------------|
-| `accountIdentifier`| `number`    | Account's identification code             |
-| `accountName` | `string`    | Account name                              |
-| `type`               | `string`    | Transaction type (DEPOSIT/DEBIT/EXCHANGE) |
-| `currency`               | `string`    | Currency code                             |
-| `amount`               | `number`    | Amount                                    |
-| `timestamp`               | `timestamp` | Timestamp of transaction                  |
+| Field               | Type        | Description                                                                                                                          |
+|:--------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `accountIdentifier` | `number`    | Account's identification code                                                                                                        |
+| `accountName`       | `string`    | Account name                                                                                                                         |
+| `type`              | `string`    | Transaction type (DEPOSIT/DEBIT/EXCHANGE)                                                                                            |
+| `currency`          | `string`    | Currency code. For exchanges it will display `toCurrency`                                                                            |
+| `amount`            | `number`    | For depositing and withdrawing: amount that was deposited or withdrawn. For exchanges: amount that was exchanged from `fromCurrency` |
+| `balance`           | `number`    | For depositing and withdrawing: updated balance. For exchanges: updated balance of `toCurrency`                                      |
+| `timestamp`         | `timestamp` | Timestamp of transaction                                                                                                             |
 
 
 #### Example request - response
@@ -287,14 +288,24 @@ List of objects with following fields:
   GET localhost:8082/account/1/transaction
 ```
 ```
-  [
+[
     {
         "accountIdentifier": 12345,
         "accountName": "Test 1",
         "type": "DEPOSIT",
         "currency": "EUR",
         "amount": 100.00,
-        "timestamp": "2025-05-25T20:59:23.220504"
+        "balance": 1100.00,
+        "timestamp": "2025-05-25T21:28:42.919364"
+    },
+    {
+        "accountIdentifier": 12345,
+        "accountName": "Test 1",
+        "type": "EXCHANGE",
+        "currency": "EUR",
+        "amount": 1.14,
+        "balance": 1101.00,
+        "timestamp": "2025-05-25T21:28:46.486441"
     },
     {
         "accountIdentifier": 12345,
@@ -302,15 +313,8 @@ List of objects with following fields:
         "type": "DEBIT",
         "currency": "EUR",
         "amount": 10.00,
-        "timestamp": "2025-05-25T21:07:15.120513"
-    },
-    {
-        "accountIdentifier": 12345,
-        "accountName": "Test 1",
-        "type": "EXCHANGE",
-        "currency": "USD",
-        "amount": 1.00,
-        "timestamp": "2025-05-25T21:08:25.334401"
+        "balance": 1091.00,
+        "timestamp": "2025-05-25T21:29:06.292235"
     }
 ]
 ```

@@ -8,6 +8,7 @@ A simple back-end containerized application that consist of:
 - #### Balance Service
   - Handles depositing, withdrawing, exchange and transactions.
 - #### H2 database
+  - Each service has its own instance.
 
 ## Issues and things to consider
 - Account Service is not really needed in this application, as the assignment
